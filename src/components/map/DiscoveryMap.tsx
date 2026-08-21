@@ -160,7 +160,7 @@ export function DiscoveryMap({
               className="cursor-pointer transition-transform duration-500 ease-[var(--ease-out-soft)]"
               tabIndex={0}
               role="button"
-              aria-label={`${p.name}, rated ${p.provider_rating_label ?? p.performance.rating}`}
+              aria-label={`${p.name}, rated ${p.performance.rating}`}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") onSelect?.(p);
               }}
