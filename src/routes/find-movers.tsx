@@ -16,23 +16,23 @@ import type { Provider, ServiceKind } from "@/domain/types";
 import { cn } from "@/lib/utils";
 
 interface DiscoverySearch {
-  q?: string;
-  pickup?: string;
-  destination?: string;
-  date?: string;
-  provider?: string;
+  q?: string | undefined;
+  pickup?: string | undefined;
+  destination?: string | undefined;
+  date?: string | undefined;
+  provider?: string | undefined;
 }
 
 const FILTER_SERVICES: ServiceKind[] = ["moving", "packing", "assembly", "storage", "unpacking"];
 
 export const Route = createFileRoute("/find-movers")({
   validateSearch: (search: Record<string, unknown>): DiscoverySearch => ({
-    q: typeof search.q === "string" && search.q ? search.q : undefined,
-    pickup: typeof search.pickup === "string" && search.pickup ? search.pickup : undefined,
+    q: typeof search['q'] === "string" && search['q'] ? search.q : undefined,
+    pickup: typeof search['pickup'] === "string" && search['pickup'] ? search.pickup : undefined,
     destination:
-      typeof search.destination === "string" && search.destination ? search.destination : undefined,
-    date: typeof search.date === "string" && search.date ? search.date : undefined,
-    provider: typeof search.provider === "string" && search.provider ? search.provider : undefined,
+      typeof search['destination'] === "string" && search['destination'] ? search.destination : undefined,
+    date: typeof search['date'] === "string" && search['date'] ? search.date : undefined,
+    provider: typeof search['provider'] === "string" && search['provider'] ? search.provider : undefined,
   }),
   head: () => ({
     meta: [
@@ -67,17 +67,17 @@ export const Route = createFileRoute("/find-movers")({
 function FindMoversPage() {
   const search = Route.useSearch();
   const navigate = useNavigate({ from: "/find-movers" });
-  const [text, setText] = useState(search.q ?? "");
+  const [text, setText] = useState(search['q'] ?? "");
   const [services, setServices] = useState<ServiceKind[]>([]);
   const [mobileView, setMobileView] = useState<"map" | "list">("map");
 
   const query = useMemo(
-    () => ({ text: text || undefined, date: search.date, services: services.length ? services : undefined }),
-    [text, search.date, services],
+    () => ({ text: text || undefined, date: search['date'], services: services.length ? services : undefined }),
+    [text, search['date'], services],
   );
 
   const { data: providers, isPending, isError, refetch } = useQuery(providerSearchQueryOptions(query));
-  const selected = providers?.find((p) => p.slug === search.provider) ?? null;
+  const selected = providers?.find((p) => p.slug === search['provider']) ?? null;
 
   const selectProvider = (provider: Provider | null) =>
     navigate({
@@ -118,11 +118,11 @@ function FindMoversPage() {
             );
           })}
         </div>
-        {(search.pickup || search.destination || search.date) && (
+        {(search['pickup'] || search['destination'] || search['date']) && (
           <div className="flex flex-wrap items-center gap-2 text-caption text-muted-foreground">
-            {search.pickup && <StatusBadge tone="neutral">From {search.pickup}</StatusBadge>}
-            {search.destination && <StatusBadge tone="neutral">To {search.destination}</StatusBadge>}
-            {search.date && <StatusBadge tone="brand">{search.date}</StatusBadge>}
+            {search['pickup'] && <StatusBadge tone="neutral">From {search['pickup']}</StatusBadge>}
+            {search['destination'] && <StatusBadge tone="neutral">To {search['destination']}</StatusBadge>}
+            {search['date'] && <StatusBadge tone="brand">{search['date']}</StatusBadge>}
             <button
               type="button"
               className="inline-flex items-center gap-1 rounded-full px-2 py-1 hover:text-foreground"
