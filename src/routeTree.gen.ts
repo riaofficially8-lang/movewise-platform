@@ -15,6 +15,7 @@ import { Route as ForMovingCompaniesRouteImport } from './routes/for-moving-comp
 import { Route as MessagesRouteImport } from './routes/messages'
 import { Route as MyMoveRouteImport } from './routes/my-move'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ProviderRouteImport } from './routes/provider'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as ProvidersSlugRouteImport } from './routes/providers.$slug'
 
@@ -48,6 +49,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProviderRoute = ProviderRouteImport.update({
+  id: '/provider',
+  path: '/provider',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SavedRoute = SavedRouteImport.update({
   id: '/saved',
   path: '/saved',
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/messages': typeof MessagesRoute
   '/my-move': typeof MyMoveRoute
   '/profile': typeof ProfileRoute
+  '/provider': typeof ProviderRoute
   '/saved': typeof SavedRoute
   '/providers/$slug': typeof ProvidersSlugRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/messages': typeof MessagesRoute
   '/my-move': typeof MyMoveRoute
   '/profile': typeof ProfileRoute
+  '/provider': typeof ProviderRoute
   '/saved': typeof SavedRoute
   '/providers/$slug': typeof ProvidersSlugRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/messages': typeof MessagesRoute
   '/my-move': typeof MyMoveRoute
   '/profile': typeof ProfileRoute
+  '/provider': typeof ProviderRoute
   '/saved': typeof SavedRoute
   '/providers/$slug': typeof ProvidersSlugRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/messages'
     | '/my-move'
     | '/profile'
+    | '/provider'
     | '/saved'
     | '/providers/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/messages'
     | '/my-move'
     | '/profile'
+    | '/provider'
     | '/saved'
     | '/providers/$slug'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/messages'
     | '/my-move'
     | '/profile'
+    | '/provider'
     | '/saved'
     | '/providers/$slug'
   fileRoutesById: FileRoutesById
@@ -130,6 +142,7 @@ export interface RootRouteChildren {
   MessagesRoute: typeof MessagesRoute
   MyMoveRoute: typeof MyMoveRoute
   ProfileRoute: typeof ProfileRoute
+  ProviderRoute: typeof ProviderRoute
   SavedRoute: typeof SavedRoute
   ProvidersSlugRoute: typeof ProvidersSlugRoute
 }
@@ -178,6 +191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/provider': {
+      id: '/provider'
+      path: '/provider'
+      fullPath: '/provider'
+      preLoaderRoute: typeof ProviderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/saved': {
       id: '/saved'
       path: '/saved'
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   MessagesRoute: MessagesRoute,
   MyMoveRoute: MyMoveRoute,
   ProfileRoute: ProfileRoute,
+  ProviderRoute: ProviderRoute,
   SavedRoute: SavedRoute,
   ProvidersSlugRoute: ProvidersSlugRoute,
 }
