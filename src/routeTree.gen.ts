@@ -10,33 +10,235 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FindMoversRouteImport } from './routes/find-movers'
+import { Route as ForMovingCompaniesRouteImport } from './routes/for-moving-companies'
+import { Route as MessagesRouteImport } from './routes/messages'
+import { Route as MyMoveRouteImport } from './routes/my-move'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ProviderRouteImport } from './routes/provider'
+import { Route as SavedRouteImport } from './routes/saved'
+import { Route as ProviderIndexRouteImport } from './routes/provider.index'
+import { Route as ProviderCalendarRouteImport } from './routes/provider.calendar'
+import { Route as ProviderCrewsRouteImport } from './routes/provider.crews'
+import { Route as ProviderCustomersRouteImport } from './routes/provider.customers'
+import { Route as ProviderFleetRouteImport } from './routes/provider.fleet'
+import { Route as ProviderJobsRouteImport } from './routes/provider.jobs'
+import { Route as ProviderMessagesRouteImport } from './routes/provider.messages'
+import { Route as ProviderProfileRouteImport } from './routes/provider.profile'
+import { Route as ProvidersSlugRouteImport } from './routes/providers.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FindMoversRoute = FindMoversRouteImport.update({
+  id: '/find-movers',
+  path: '/find-movers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForMovingCompaniesRoute = ForMovingCompaniesRouteImport.update({
+  id: '/for-moving-companies',
+  path: '/for-moving-companies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MessagesRoute = MessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyMoveRoute = MyMoveRouteImport.update({
+  id: '/my-move',
+  path: '/my-move',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProviderRoute = ProviderRouteImport.update({
+  id: '/provider',
+  path: '/provider',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavedRoute = SavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProviderIndexRoute = ProviderIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProviderRoute,
+} as any)
+const ProviderCalendarRoute = ProviderCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => ProviderRoute,
+} as any)
+const ProviderCrewsRoute = ProviderCrewsRouteImport.update({
+  id: '/crews',
+  path: '/crews',
+  getParentRoute: () => ProviderRoute,
+} as any)
+const ProviderCustomersRoute = ProviderCustomersRouteImport.update({
+  id: '/customers',
+  path: '/customers',
+  getParentRoute: () => ProviderRoute,
+} as any)
+const ProviderFleetRoute = ProviderFleetRouteImport.update({
+  id: '/fleet',
+  path: '/fleet',
+  getParentRoute: () => ProviderRoute,
+} as any)
+const ProviderJobsRoute = ProviderJobsRouteImport.update({
+  id: '/jobs',
+  path: '/jobs',
+  getParentRoute: () => ProviderRoute,
+} as any)
+const ProviderMessagesRoute = ProviderMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => ProviderRoute,
+} as any)
+const ProviderProfileRoute = ProviderProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => ProviderRoute,
+} as any)
+const ProvidersSlugRoute = ProvidersSlugRouteImport.update({
+  id: '/providers/$slug',
+  path: '/providers/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/find-movers': typeof FindMoversRoute
+  '/for-moving-companies': typeof ForMovingCompaniesRoute
+  '/messages': typeof MessagesRoute
+  '/my-move': typeof MyMoveRoute
+  '/profile': typeof ProfileRoute
+  '/provider': typeof ProviderRouteWithChildren
+  '/saved': typeof SavedRoute
+  '/provider/calendar': typeof ProviderCalendarRoute
+  '/provider/crews': typeof ProviderCrewsRoute
+  '/provider/customers': typeof ProviderCustomersRoute
+  '/provider/fleet': typeof ProviderFleetRoute
+  '/provider/jobs': typeof ProviderJobsRoute
+  '/provider/messages': typeof ProviderMessagesRoute
+  '/provider/profile': typeof ProviderProfileRoute
+  '/providers/$slug': typeof ProvidersSlugRoute
+  '/provider/': typeof ProviderIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/find-movers': typeof FindMoversRoute
+  '/for-moving-companies': typeof ForMovingCompaniesRoute
+  '/messages': typeof MessagesRoute
+  '/my-move': typeof MyMoveRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/provider/calendar': typeof ProviderCalendarRoute
+  '/provider/crews': typeof ProviderCrewsRoute
+  '/provider/customers': typeof ProviderCustomersRoute
+  '/provider/fleet': typeof ProviderFleetRoute
+  '/provider/jobs': typeof ProviderJobsRoute
+  '/provider/messages': typeof ProviderMessagesRoute
+  '/provider/profile': typeof ProviderProfileRoute
+  '/providers/$slug': typeof ProvidersSlugRoute
+  '/provider': typeof ProviderIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/find-movers': typeof FindMoversRoute
+  '/for-moving-companies': typeof ForMovingCompaniesRoute
+  '/messages': typeof MessagesRoute
+  '/my-move': typeof MyMoveRoute
+  '/profile': typeof ProfileRoute
+  '/provider': typeof ProviderRouteWithChildren
+  '/saved': typeof SavedRoute
+  '/provider/calendar': typeof ProviderCalendarRoute
+  '/provider/crews': typeof ProviderCrewsRoute
+  '/provider/customers': typeof ProviderCustomersRoute
+  '/provider/fleet': typeof ProviderFleetRoute
+  '/provider/jobs': typeof ProviderJobsRoute
+  '/provider/messages': typeof ProviderMessagesRoute
+  '/provider/profile': typeof ProviderProfileRoute
+  '/providers/$slug': typeof ProvidersSlugRoute
+  '/provider/': typeof ProviderIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/find-movers'
+    | '/for-moving-companies'
+    | '/messages'
+    | '/my-move'
+    | '/profile'
+    | '/provider'
+    | '/saved'
+    | '/provider/calendar'
+    | '/provider/crews'
+    | '/provider/customers'
+    | '/provider/fleet'
+    | '/provider/jobs'
+    | '/provider/messages'
+    | '/provider/profile'
+    | '/providers/$slug'
+    | '/provider/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/find-movers'
+    | '/for-moving-companies'
+    | '/messages'
+    | '/my-move'
+    | '/profile'
+    | '/saved'
+    | '/provider/calendar'
+    | '/provider/crews'
+    | '/provider/customers'
+    | '/provider/fleet'
+    | '/provider/jobs'
+    | '/provider/messages'
+    | '/provider/profile'
+    | '/providers/$slug'
+    | '/provider'
+  id:
+    | '__root__'
+    | '/'
+    | '/find-movers'
+    | '/for-moving-companies'
+    | '/messages'
+    | '/my-move'
+    | '/profile'
+    | '/provider'
+    | '/saved'
+    | '/provider/calendar'
+    | '/provider/crews'
+    | '/provider/customers'
+    | '/provider/fleet'
+    | '/provider/jobs'
+    | '/provider/messages'
+    | '/provider/profile'
+    | '/providers/$slug'
+    | '/provider/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FindMoversRoute: typeof FindMoversRoute
+  ForMovingCompaniesRoute: typeof ForMovingCompaniesRoute
+  MessagesRoute: typeof MessagesRoute
+  MyMoveRoute: typeof MyMoveRoute
+  ProfileRoute: typeof ProfileRoute
+  ProviderRoute: typeof ProviderRouteWithChildren
+  SavedRoute: typeof SavedRoute
+  ProvidersSlugRoute: typeof ProvidersSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +250,157 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/find-movers': {
+      id: '/find-movers'
+      path: '/find-movers'
+      fullPath: '/find-movers'
+      preLoaderRoute: typeof FindMoversRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-moving-companies': {
+      id: '/for-moving-companies'
+      path: '/for-moving-companies'
+      fullPath: '/for-moving-companies'
+      preLoaderRoute: typeof ForMovingCompaniesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/messages': {
+      id: '/messages'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof MessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-move': {
+      id: '/my-move'
+      path: '/my-move'
+      fullPath: '/my-move'
+      preLoaderRoute: typeof MyMoveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/provider': {
+      id: '/provider'
+      path: '/provider'
+      fullPath: '/provider'
+      preLoaderRoute: typeof ProviderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saved': {
+      id: '/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof SavedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/provider/': {
+      id: '/provider/'
+      path: '/'
+      fullPath: '/provider/'
+      preLoaderRoute: typeof ProviderIndexRouteImport
+      parentRoute: typeof ProviderRoute
+    }
+    '/provider/calendar': {
+      id: '/provider/calendar'
+      path: '/calendar'
+      fullPath: '/provider/calendar'
+      preLoaderRoute: typeof ProviderCalendarRouteImport
+      parentRoute: typeof ProviderRoute
+    }
+    '/provider/crews': {
+      id: '/provider/crews'
+      path: '/crews'
+      fullPath: '/provider/crews'
+      preLoaderRoute: typeof ProviderCrewsRouteImport
+      parentRoute: typeof ProviderRoute
+    }
+    '/provider/customers': {
+      id: '/provider/customers'
+      path: '/customers'
+      fullPath: '/provider/customers'
+      preLoaderRoute: typeof ProviderCustomersRouteImport
+      parentRoute: typeof ProviderRoute
+    }
+    '/provider/fleet': {
+      id: '/provider/fleet'
+      path: '/fleet'
+      fullPath: '/provider/fleet'
+      preLoaderRoute: typeof ProviderFleetRouteImport
+      parentRoute: typeof ProviderRoute
+    }
+    '/provider/jobs': {
+      id: '/provider/jobs'
+      path: '/jobs'
+      fullPath: '/provider/jobs'
+      preLoaderRoute: typeof ProviderJobsRouteImport
+      parentRoute: typeof ProviderRoute
+    }
+    '/provider/messages': {
+      id: '/provider/messages'
+      path: '/messages'
+      fullPath: '/provider/messages'
+      preLoaderRoute: typeof ProviderMessagesRouteImport
+      parentRoute: typeof ProviderRoute
+    }
+    '/provider/profile': {
+      id: '/provider/profile'
+      path: '/profile'
+      fullPath: '/provider/profile'
+      preLoaderRoute: typeof ProviderProfileRouteImport
+      parentRoute: typeof ProviderRoute
+    }
+    '/providers/$slug': {
+      id: '/providers/$slug'
+      path: '/providers/$slug'
+      fullPath: '/providers/$slug'
+      preLoaderRoute: typeof ProvidersSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface ProviderRouteChildren {
+  ProviderCalendarRoute: typeof ProviderCalendarRoute
+  ProviderCrewsRoute: typeof ProviderCrewsRoute
+  ProviderCustomersRoute: typeof ProviderCustomersRoute
+  ProviderFleetRoute: typeof ProviderFleetRoute
+  ProviderJobsRoute: typeof ProviderJobsRoute
+  ProviderMessagesRoute: typeof ProviderMessagesRoute
+  ProviderProfileRoute: typeof ProviderProfileRoute
+  ProviderIndexRoute: typeof ProviderIndexRoute
+}
+
+const ProviderRouteChildren: ProviderRouteChildren = {
+  ProviderCalendarRoute: ProviderCalendarRoute,
+  ProviderCrewsRoute: ProviderCrewsRoute,
+  ProviderCustomersRoute: ProviderCustomersRoute,
+  ProviderFleetRoute: ProviderFleetRoute,
+  ProviderJobsRoute: ProviderJobsRoute,
+  ProviderMessagesRoute: ProviderMessagesRoute,
+  ProviderProfileRoute: ProviderProfileRoute,
+  ProviderIndexRoute: ProviderIndexRoute,
+}
+
+const ProviderRouteWithChildren = ProviderRoute._addFileChildren(
+  ProviderRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FindMoversRoute: FindMoversRoute,
+  ForMovingCompaniesRoute: ForMovingCompaniesRoute,
+  MessagesRoute: MessagesRoute,
+  MyMoveRoute: MyMoveRoute,
+  ProfileRoute: ProfileRoute,
+  ProviderRoute: ProviderRouteWithChildren,
+  SavedRoute: SavedRoute,
+  ProvidersSlugRoute: ProvidersSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

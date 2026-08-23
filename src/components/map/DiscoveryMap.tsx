@@ -41,7 +41,7 @@ const MARKER_TONE_STYLES = {
 
 export interface DiscoveryMapProps {
   providers: Provider[];
-  selectedId?: string;
+  selectedId?: string | undefined;
   onSelect?: (provider: Provider) => void;
   userLocation?: GeoPoint;
   className?: string;

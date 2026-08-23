@@ -142,7 +142,7 @@ export interface ResourceAvailabilitySummary {
   moversTotal: number;
   moversAvailable: number;
   /** Set only when a concrete requested window was evaluated. */
-  window?: TimeWindow;
+  window?: TimeWindow | undefined;
 }
 
 /* ---------------------------------------------------------------- resources */
@@ -411,10 +411,10 @@ export interface Notification {
 /* ------------------------------------------------------------------ queries */
 
 export interface ProviderSearchQuery {
-  text?: string;
-  pickup?: string;
-  destination?: string;
-  date?: string;
-  services?: ServiceKind[];
-  minRating?: number;
+  text?: string | undefined;
+  pickup?: string | undefined;
+  destination?: string | undefined;
+  date?: string | undefined;
+  services?: ServiceKind[] | undefined;
+  minRating?: number | undefined;
 }
