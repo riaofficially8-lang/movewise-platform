@@ -19,7 +19,9 @@ import { Route as ProviderRouteImport } from './routes/provider'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as ProviderIndexRouteImport } from './routes/provider.index'
 import { Route as ProviderCalendarRouteImport } from './routes/provider.calendar'
+import { Route as ProviderCrewsRouteImport } from './routes/provider.crews'
 import { Route as ProviderCustomersRouteImport } from './routes/provider.customers'
+import { Route as ProviderFleetRouteImport } from './routes/provider.fleet'
 import { Route as ProviderJobsRouteImport } from './routes/provider.jobs'
 import { Route as ProviderMessagesRouteImport } from './routes/provider.messages'
 import { Route as ProviderProfileRouteImport } from './routes/provider.profile'
@@ -75,9 +77,19 @@ const ProviderCalendarRoute = ProviderCalendarRouteImport.update({
   path: '/calendar',
   getParentRoute: () => ProviderRoute,
 } as any)
+const ProviderCrewsRoute = ProviderCrewsRouteImport.update({
+  id: '/crews',
+  path: '/crews',
+  getParentRoute: () => ProviderRoute,
+} as any)
 const ProviderCustomersRoute = ProviderCustomersRouteImport.update({
   id: '/customers',
   path: '/customers',
+  getParentRoute: () => ProviderRoute,
+} as any)
+const ProviderFleetRoute = ProviderFleetRouteImport.update({
+  id: '/fleet',
+  path: '/fleet',
   getParentRoute: () => ProviderRoute,
 } as any)
 const ProviderJobsRoute = ProviderJobsRouteImport.update({
@@ -111,7 +123,9 @@ export interface FileRoutesByFullPath {
   '/provider': typeof ProviderRouteWithChildren
   '/saved': typeof SavedRoute
   '/provider/calendar': typeof ProviderCalendarRoute
+  '/provider/crews': typeof ProviderCrewsRoute
   '/provider/customers': typeof ProviderCustomersRoute
+  '/provider/fleet': typeof ProviderFleetRoute
   '/provider/jobs': typeof ProviderJobsRoute
   '/provider/messages': typeof ProviderMessagesRoute
   '/provider/profile': typeof ProviderProfileRoute
@@ -127,7 +141,9 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/provider/calendar': typeof ProviderCalendarRoute
+  '/provider/crews': typeof ProviderCrewsRoute
   '/provider/customers': typeof ProviderCustomersRoute
+  '/provider/fleet': typeof ProviderFleetRoute
   '/provider/jobs': typeof ProviderJobsRoute
   '/provider/messages': typeof ProviderMessagesRoute
   '/provider/profile': typeof ProviderProfileRoute
@@ -145,7 +161,9 @@ export interface FileRoutesById {
   '/provider': typeof ProviderRouteWithChildren
   '/saved': typeof SavedRoute
   '/provider/calendar': typeof ProviderCalendarRoute
+  '/provider/crews': typeof ProviderCrewsRoute
   '/provider/customers': typeof ProviderCustomersRoute
+  '/provider/fleet': typeof ProviderFleetRoute
   '/provider/jobs': typeof ProviderJobsRoute
   '/provider/messages': typeof ProviderMessagesRoute
   '/provider/profile': typeof ProviderProfileRoute
@@ -164,7 +182,9 @@ export interface FileRouteTypes {
     | '/provider'
     | '/saved'
     | '/provider/calendar'
+    | '/provider/crews'
     | '/provider/customers'
+    | '/provider/fleet'
     | '/provider/jobs'
     | '/provider/messages'
     | '/provider/profile'
@@ -180,7 +200,9 @@ export interface FileRouteTypes {
     | '/profile'
     | '/saved'
     | '/provider/calendar'
+    | '/provider/crews'
     | '/provider/customers'
+    | '/provider/fleet'
     | '/provider/jobs'
     | '/provider/messages'
     | '/provider/profile'
@@ -197,7 +219,9 @@ export interface FileRouteTypes {
     | '/provider'
     | '/saved'
     | '/provider/calendar'
+    | '/provider/crews'
     | '/provider/customers'
+    | '/provider/fleet'
     | '/provider/jobs'
     | '/provider/messages'
     | '/provider/profile'
@@ -289,11 +313,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProviderCalendarRouteImport
       parentRoute: typeof ProviderRoute
     }
+    '/provider/crews': {
+      id: '/provider/crews'
+      path: '/crews'
+      fullPath: '/provider/crews'
+      preLoaderRoute: typeof ProviderCrewsRouteImport
+      parentRoute: typeof ProviderRoute
+    }
     '/provider/customers': {
       id: '/provider/customers'
       path: '/customers'
       fullPath: '/provider/customers'
       preLoaderRoute: typeof ProviderCustomersRouteImport
+      parentRoute: typeof ProviderRoute
+    }
+    '/provider/fleet': {
+      id: '/provider/fleet'
+      path: '/fleet'
+      fullPath: '/provider/fleet'
+      preLoaderRoute: typeof ProviderFleetRouteImport
       parentRoute: typeof ProviderRoute
     }
     '/provider/jobs': {
@@ -329,7 +367,9 @@ declare module '@tanstack/react-router' {
 
 interface ProviderRouteChildren {
   ProviderCalendarRoute: typeof ProviderCalendarRoute
+  ProviderCrewsRoute: typeof ProviderCrewsRoute
   ProviderCustomersRoute: typeof ProviderCustomersRoute
+  ProviderFleetRoute: typeof ProviderFleetRoute
   ProviderJobsRoute: typeof ProviderJobsRoute
   ProviderMessagesRoute: typeof ProviderMessagesRoute
   ProviderProfileRoute: typeof ProviderProfileRoute
@@ -338,7 +378,9 @@ interface ProviderRouteChildren {
 
 const ProviderRouteChildren: ProviderRouteChildren = {
   ProviderCalendarRoute: ProviderCalendarRoute,
+  ProviderCrewsRoute: ProviderCrewsRoute,
   ProviderCustomersRoute: ProviderCustomersRoute,
+  ProviderFleetRoute: ProviderFleetRoute,
   ProviderJobsRoute: ProviderJobsRoute,
   ProviderMessagesRoute: ProviderMessagesRoute,
   ProviderProfileRoute: ProviderProfileRoute,
