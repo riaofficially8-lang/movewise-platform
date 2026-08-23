@@ -11,7 +11,7 @@ export const Route = createFileRoute("/provider/crews")({
 });
 
 function CrewsPage() {
-  const { provider, crews } = PROVIDER_BUNDLES[0];
+  const { provider, crews } = PROVIDER_BUNDLES[0]!;
 
   return (
     <ConsoleSection

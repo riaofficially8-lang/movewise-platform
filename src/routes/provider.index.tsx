@@ -12,7 +12,7 @@ export const Route = createFileRoute("/provider/")({
 
 function ProviderOverview() {
   // Demo context: the signed-in business maps to the first provider bundle.
-  const { provider, vehicles, crews } = PROVIDER_BUNDLES[0];
+  const { provider, vehicles, crews } = PROVIDER_BUNDLES[0]!;
   const perf = provider.performance;
 
   return (

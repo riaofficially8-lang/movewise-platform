@@ -11,7 +11,7 @@ export const Route = createFileRoute("/provider/fleet")({
 });
 
 function FleetPage() {
-  const { provider, vehicles } = PROVIDER_BUNDLES[0];
+  const { provider, vehicles } = PROVIDER_BUNDLES[0]!;
 
   return (
     <ConsoleSection

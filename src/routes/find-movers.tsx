@@ -27,12 +27,12 @@ const FILTER_SERVICES: ServiceKind[] = ["moving", "packing", "assembly", "storag
 
 export const Route = createFileRoute("/find-movers")({
   validateSearch: (search: Record<string, unknown>): DiscoverySearch => ({
-    q: typeof search['q'] === "string" && search['q'] ? search.q : undefined,
-    pickup: typeof search['pickup'] === "string" && search['pickup'] ? search.pickup : undefined,
+    q: typeof search['q'] === "string" && search['q'] ? search['q'] : undefined,
+    pickup: typeof search['pickup'] === "string" && search['pickup'] ? search['pickup'] : undefined,
     destination:
-      typeof search['destination'] === "string" && search['destination'] ? search.destination : undefined,
-    date: typeof search['date'] === "string" && search['date'] ? search.date : undefined,
-    provider: typeof search['provider'] === "string" && search['provider'] ? search.provider : undefined,
+      typeof search['destination'] === "string" && search['destination'] ? search['destination'] : undefined,
+    date: typeof search['date'] === "string" && search['date'] ? search['date'] : undefined,
+    provider: typeof search['provider'] === "string" && search['provider'] ? search['provider'] : undefined,
   }),
   head: () => ({
     meta: [
