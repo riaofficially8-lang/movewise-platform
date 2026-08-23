@@ -17,6 +17,12 @@ import { Route as MyMoveRouteImport } from './routes/my-move'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ProviderRouteImport } from './routes/provider'
 import { Route as SavedRouteImport } from './routes/saved'
+import { Route as ProviderIndexRouteImport } from './routes/provider.index'
+import { Route as ProviderCalendarRouteImport } from './routes/provider.calendar'
+import { Route as ProviderCustomersRouteImport } from './routes/provider.customers'
+import { Route as ProviderJobsRouteImport } from './routes/provider.jobs'
+import { Route as ProviderMessagesRouteImport } from './routes/provider.messages'
+import { Route as ProviderProfileRouteImport } from './routes/provider.profile'
 import { Route as ProvidersSlugRouteImport } from './routes/providers.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -59,6 +65,36 @@ const SavedRoute = SavedRouteImport.update({
   path: '/saved',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProviderIndexRoute = ProviderIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProviderRoute,
+} as any)
+const ProviderCalendarRoute = ProviderCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => ProviderRoute,
+} as any)
+const ProviderCustomersRoute = ProviderCustomersRouteImport.update({
+  id: '/customers',
+  path: '/customers',
+  getParentRoute: () => ProviderRoute,
+} as any)
+const ProviderJobsRoute = ProviderJobsRouteImport.update({
+  id: '/jobs',
+  path: '/jobs',
+  getParentRoute: () => ProviderRoute,
+} as any)
+const ProviderMessagesRoute = ProviderMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => ProviderRoute,
+} as any)
+const ProviderProfileRoute = ProviderProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => ProviderRoute,
+} as any)
 const ProvidersSlugRoute = ProvidersSlugRouteImport.update({
   id: '/providers/$slug',
   path: '/providers/$slug',
@@ -72,9 +108,15 @@ export interface FileRoutesByFullPath {
   '/messages': typeof MessagesRoute
   '/my-move': typeof MyMoveRoute
   '/profile': typeof ProfileRoute
-  '/provider': typeof ProviderRoute
+  '/provider': typeof ProviderRouteWithChildren
   '/saved': typeof SavedRoute
+  '/provider/calendar': typeof ProviderCalendarRoute
+  '/provider/customers': typeof ProviderCustomersRoute
+  '/provider/jobs': typeof ProviderJobsRoute
+  '/provider/messages': typeof ProviderMessagesRoute
+  '/provider/profile': typeof ProviderProfileRoute
   '/providers/$slug': typeof ProvidersSlugRoute
+  '/provider/': typeof ProviderIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -83,9 +125,14 @@ export interface FileRoutesByTo {
   '/messages': typeof MessagesRoute
   '/my-move': typeof MyMoveRoute
   '/profile': typeof ProfileRoute
-  '/provider': typeof ProviderRoute
   '/saved': typeof SavedRoute
+  '/provider/calendar': typeof ProviderCalendarRoute
+  '/provider/customers': typeof ProviderCustomersRoute
+  '/provider/jobs': typeof ProviderJobsRoute
+  '/provider/messages': typeof ProviderMessagesRoute
+  '/provider/profile': typeof ProviderProfileRoute
   '/providers/$slug': typeof ProvidersSlugRoute
+  '/provider': typeof ProviderIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -95,9 +142,15 @@ export interface FileRoutesById {
   '/messages': typeof MessagesRoute
   '/my-move': typeof MyMoveRoute
   '/profile': typeof ProfileRoute
-  '/provider': typeof ProviderRoute
+  '/provider': typeof ProviderRouteWithChildren
   '/saved': typeof SavedRoute
+  '/provider/calendar': typeof ProviderCalendarRoute
+  '/provider/customers': typeof ProviderCustomersRoute
+  '/provider/jobs': typeof ProviderJobsRoute
+  '/provider/messages': typeof ProviderMessagesRoute
+  '/provider/profile': typeof ProviderProfileRoute
   '/providers/$slug': typeof ProvidersSlugRoute
+  '/provider/': typeof ProviderIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -110,7 +163,13 @@ export interface FileRouteTypes {
     | '/profile'
     | '/provider'
     | '/saved'
+    | '/provider/calendar'
+    | '/provider/customers'
+    | '/provider/jobs'
+    | '/provider/messages'
+    | '/provider/profile'
     | '/providers/$slug'
+    | '/provider/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -119,9 +178,14 @@ export interface FileRouteTypes {
     | '/messages'
     | '/my-move'
     | '/profile'
-    | '/provider'
     | '/saved'
+    | '/provider/calendar'
+    | '/provider/customers'
+    | '/provider/jobs'
+    | '/provider/messages'
+    | '/provider/profile'
     | '/providers/$slug'
+    | '/provider'
   id:
     | '__root__'
     | '/'
@@ -132,7 +196,13 @@ export interface FileRouteTypes {
     | '/profile'
     | '/provider'
     | '/saved'
+    | '/provider/calendar'
+    | '/provider/customers'
+    | '/provider/jobs'
+    | '/provider/messages'
+    | '/provider/profile'
     | '/providers/$slug'
+    | '/provider/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -142,7 +212,7 @@ export interface RootRouteChildren {
   MessagesRoute: typeof MessagesRoute
   MyMoveRoute: typeof MyMoveRoute
   ProfileRoute: typeof ProfileRoute
-  ProviderRoute: typeof ProviderRoute
+  ProviderRoute: typeof ProviderRouteWithChildren
   SavedRoute: typeof SavedRoute
   ProvidersSlugRoute: typeof ProvidersSlugRoute
 }
@@ -205,6 +275,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SavedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/provider/': {
+      id: '/provider/'
+      path: '/'
+      fullPath: '/provider/'
+      preLoaderRoute: typeof ProviderIndexRouteImport
+      parentRoute: typeof ProviderRoute
+    }
+    '/provider/calendar': {
+      id: '/provider/calendar'
+      path: '/calendar'
+      fullPath: '/provider/calendar'
+      preLoaderRoute: typeof ProviderCalendarRouteImport
+      parentRoute: typeof ProviderRoute
+    }
+    '/provider/customers': {
+      id: '/provider/customers'
+      path: '/customers'
+      fullPath: '/provider/customers'
+      preLoaderRoute: typeof ProviderCustomersRouteImport
+      parentRoute: typeof ProviderRoute
+    }
+    '/provider/jobs': {
+      id: '/provider/jobs'
+      path: '/jobs'
+      fullPath: '/provider/jobs'
+      preLoaderRoute: typeof ProviderJobsRouteImport
+      parentRoute: typeof ProviderRoute
+    }
+    '/provider/messages': {
+      id: '/provider/messages'
+      path: '/messages'
+      fullPath: '/provider/messages'
+      preLoaderRoute: typeof ProviderMessagesRouteImport
+      parentRoute: typeof ProviderRoute
+    }
+    '/provider/profile': {
+      id: '/provider/profile'
+      path: '/profile'
+      fullPath: '/provider/profile'
+      preLoaderRoute: typeof ProviderProfileRouteImport
+      parentRoute: typeof ProviderRoute
+    }
     '/providers/$slug': {
       id: '/providers/$slug'
       path: '/providers/$slug'
@@ -215,6 +327,28 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ProviderRouteChildren {
+  ProviderCalendarRoute: typeof ProviderCalendarRoute
+  ProviderCustomersRoute: typeof ProviderCustomersRoute
+  ProviderJobsRoute: typeof ProviderJobsRoute
+  ProviderMessagesRoute: typeof ProviderMessagesRoute
+  ProviderProfileRoute: typeof ProviderProfileRoute
+  ProviderIndexRoute: typeof ProviderIndexRoute
+}
+
+const ProviderRouteChildren: ProviderRouteChildren = {
+  ProviderCalendarRoute: ProviderCalendarRoute,
+  ProviderCustomersRoute: ProviderCustomersRoute,
+  ProviderJobsRoute: ProviderJobsRoute,
+  ProviderMessagesRoute: ProviderMessagesRoute,
+  ProviderProfileRoute: ProviderProfileRoute,
+  ProviderIndexRoute: ProviderIndexRoute,
+}
+
+const ProviderRouteWithChildren = ProviderRoute._addFileChildren(
+  ProviderRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FindMoversRoute: FindMoversRoute,
@@ -222,7 +356,7 @@ const rootRouteChildren: RootRouteChildren = {
   MessagesRoute: MessagesRoute,
   MyMoveRoute: MyMoveRoute,
   ProfileRoute: ProfileRoute,
-  ProviderRoute: ProviderRoute,
+  ProviderRoute: ProviderRouteWithChildren,
   SavedRoute: SavedRoute,
   ProvidersSlugRoute: ProvidersSlugRoute,
 }
