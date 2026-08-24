@@ -14,6 +14,7 @@ import { Route as FindMoversRouteImport } from './routes/find-movers'
 import { Route as ForMovingCompaniesRouteImport } from './routes/for-moving-companies'
 import { Route as MessagesRouteImport } from './routes/messages'
 import { Route as MyMoveRouteImport } from './routes/my-move'
+import { Route as PlanMoveRouteImport } from './routes/plan-move'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ProviderRouteImport } from './routes/provider'
 import { Route as SavedRouteImport } from './routes/saved'
@@ -50,6 +51,11 @@ const MessagesRoute = MessagesRouteImport.update({
 const MyMoveRoute = MyMoveRouteImport.update({
   id: '/my-move',
   path: '/my-move',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlanMoveRoute = PlanMoveRouteImport.update({
+  id: '/plan-move',
+  path: '/plan-move',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileRoute = ProfileRouteImport.update({
@@ -119,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/for-moving-companies': typeof ForMovingCompaniesRoute
   '/messages': typeof MessagesRoute
   '/my-move': typeof MyMoveRoute
+  '/plan-move': typeof PlanMoveRoute
   '/profile': typeof ProfileRoute
   '/provider': typeof ProviderRouteWithChildren
   '/saved': typeof SavedRoute
@@ -138,6 +145,7 @@ export interface FileRoutesByTo {
   '/for-moving-companies': typeof ForMovingCompaniesRoute
   '/messages': typeof MessagesRoute
   '/my-move': typeof MyMoveRoute
+  '/plan-move': typeof PlanMoveRoute
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/provider/calendar': typeof ProviderCalendarRoute
@@ -157,6 +165,7 @@ export interface FileRoutesById {
   '/for-moving-companies': typeof ForMovingCompaniesRoute
   '/messages': typeof MessagesRoute
   '/my-move': typeof MyMoveRoute
+  '/plan-move': typeof PlanMoveRoute
   '/profile': typeof ProfileRoute
   '/provider': typeof ProviderRouteWithChildren
   '/saved': typeof SavedRoute
@@ -178,6 +187,7 @@ export interface FileRouteTypes {
     | '/for-moving-companies'
     | '/messages'
     | '/my-move'
+    | '/plan-move'
     | '/profile'
     | '/provider'
     | '/saved'
@@ -197,6 +207,7 @@ export interface FileRouteTypes {
     | '/for-moving-companies'
     | '/messages'
     | '/my-move'
+    | '/plan-move'
     | '/profile'
     | '/saved'
     | '/provider/calendar'
@@ -215,6 +226,7 @@ export interface FileRouteTypes {
     | '/for-moving-companies'
     | '/messages'
     | '/my-move'
+    | '/plan-move'
     | '/profile'
     | '/provider'
     | '/saved'
@@ -235,6 +247,7 @@ export interface RootRouteChildren {
   ForMovingCompaniesRoute: typeof ForMovingCompaniesRoute
   MessagesRoute: typeof MessagesRoute
   MyMoveRoute: typeof MyMoveRoute
+  PlanMoveRoute: typeof PlanMoveRoute
   ProfileRoute: typeof ProfileRoute
   ProviderRoute: typeof ProviderRouteWithChildren
   SavedRoute: typeof SavedRoute
@@ -276,6 +289,13 @@ declare module '@tanstack/react-router' {
       path: '/my-move'
       fullPath: '/my-move'
       preLoaderRoute: typeof MyMoveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/plan-move': {
+      id: '/plan-move'
+      path: '/plan-move'
+      fullPath: '/plan-move'
+      preLoaderRoute: typeof PlanMoveRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -397,6 +417,7 @@ const rootRouteChildren: RootRouteChildren = {
   ForMovingCompaniesRoute: ForMovingCompaniesRoute,
   MessagesRoute: MessagesRoute,
   MyMoveRoute: MyMoveRoute,
+  PlanMoveRoute: PlanMoveRoute,
   ProfileRoute: ProfileRoute,
   ProviderRoute: ProviderRouteWithChildren,
   SavedRoute: SavedRoute,
