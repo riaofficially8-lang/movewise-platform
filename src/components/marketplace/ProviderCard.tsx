@@ -27,11 +27,12 @@ export function ProviderCard({ provider, selected, onSelect, className }: Provid
   return (
     <article
       onClick={onSelect ? () => onSelect(provider) : undefined}
+      aria-selected={selected}
       className={cn(
         "group surface-card relative p-5 transition-all duration-300 ease-[var(--ease-out-soft)]",
         onSelect && "cursor-pointer hover:-translate-y-0.5 hover:shadow-[var(--shadow-e2)]",
         selected
-          ? "border-primary/45 shadow-[var(--shadow-e2)] ring-1 ring-primary/25"
+          ? "border-primary/60 bg-primary-soft/40 shadow-[var(--shadow-e2)] ring-2 ring-primary/30"
           : "hover:border-border-strong",
         className,
       )}
@@ -111,11 +112,18 @@ export function ProviderCard({ provider, selected, onSelect, className }: Provid
           <Clock3 className="size-3.5" aria-hidden="true" />
           Replies in ~{perf.medianResponseMinutes} min
         </span>
-        <Button asChild size="sm" variant="outline" onClick={(e) => e.stopPropagation()}>
-          <Link to="/providers/$slug" params={{ slug: provider.slug }}>
-            View profile
-          </Link>
-        </Button>
+        <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
+          <Button asChild size="sm" variant="outline">
+            <Link to="/providers/$slug" params={{ slug: provider.slug }}>
+              View profile
+            </Link>
+          </Button>
+          <Button asChild size="sm">
+            <Link to="/request/$slug" params={{ slug: provider.slug }}>
+              Request move
+            </Link>
+          </Button>
+        </div>
       </div>
     </article>
   );

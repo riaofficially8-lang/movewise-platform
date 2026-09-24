@@ -7,10 +7,11 @@ import { AppShell } from "@/components/layout/AppShell";
 import { DiscoveryMap } from "@/components/map/DiscoveryMap";
 import { ProviderCard } from "@/components/marketplace/ProviderCard";
 import { ProviderSearchField } from "@/components/search/MoveSearchForm";
-import { StatusBadge } from "@/components/ui-kit/primitives";
+import { MoveSummaryCard } from "@/components/marketplace/MoveSummaryCard";
 import { EmptyState, ErrorState, LoadingList } from "@/components/ui-kit/states";
 import { Button } from "@/components/ui/button";
 import { SERVICE_LABELS } from "@/domain/mock-data";
+import { useMoveDraft } from "@/domain/move-request";
 import { providerSearchQueryOptions } from "@/domain/repository";
 import type { Provider, ServiceKind } from "@/domain/types";
 import { cn } from "@/lib/utils";
@@ -69,11 +70,12 @@ function FindMoversPage() {
   const navigate = useNavigate({ from: "/find-movers" });
   const [text, setText] = useState(search['q'] ?? "");
   const [services, setServices] = useState<ServiceKind[]>([]);
+  const draft = useMoveDraft();
   const [mobileView, setMobileView] = useState<"map" | "list">("map");
 
   const query = useMemo(
-    () => ({ text: text || undefined, date: search['date'], services: services.length ? services : undefined }),
-    [text, search['date'], services],
+    () => ({ text: text || undefined, date: search['date'] || draft.date || undefined, services: services.length ? services : undefined }),
+    [text, search['date'], draft.date, services],
   );
 
   const { data: providers, isPending, isError, refetch } = useQuery(providerSearchQueryOptions(query));
@@ -118,25 +120,7 @@ function FindMoversPage() {
             );
           })}
         </div>
-        {(search['pickup'] || search['destination'] || search['date']) && (
-          <div className="flex flex-wrap items-center gap-2 text-caption text-muted-foreground">
-            {search['pickup'] && <StatusBadge tone="neutral">From {search['pickup']}</StatusBadge>}
-            {search['destination'] && <StatusBadge tone="neutral">To {search['destination']}</StatusBadge>}
-            {search['date'] && <StatusBadge tone="brand">{search['date']}</StatusBadge>}
-            <button
-              type="button"
-              className="inline-flex items-center gap-1 rounded-full px-2 py-1 hover:text-foreground"
-              onClick={() =>
-                navigate({
-                  to: ".",
-                  search: (prev) => ({ ...prev, pickup: undefined, destination: undefined, date: undefined }),
-                })
-              }
-            >
-              <X className="size-3" aria-hidden="true" /> Clear
-            </button>
-          </div>
-        )}
+        <MoveSummaryCard draft={draft} compact />
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto p-4 lg:p-5">
@@ -219,12 +203,33 @@ function FindMoversPage() {
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   {selected.tagline}
                 </p>
-                <Button asChild className="mt-5 w-full">
-                  <Link to="/providers/$slug" params={{ slug: selected.slug }}>
-                    Open provider profile
-                    <ArrowRight aria-hidden="true" />
-                  </Link>
-                </Button>
+                <div className="mt-4 grid grid-cols-2 gap-2 text-caption">
+                  <div className="rounded-xl bg-surface px-3 py-2">
+                    <span className="block text-muted-foreground">Vehicles free</span>
+                    <span className="font-semibold tabular-nums text-foreground">
+                      {selected.availability.vehiclesAvailable}/{selected.availability.vehiclesTotal}
+                    </span>
+                  </div>
+                  <div className="rounded-xl bg-surface px-3 py-2">
+                    <span className="block text-muted-foreground">Movers free</span>
+                    <span className="font-semibold tabular-nums text-foreground">
+                      {selected.availability.moversAvailable}/{selected.availability.moversTotal}
+                    </span>
+                  </div>
+                </div>
+                <div className="mt-5 grid grid-cols-2 gap-2">
+                  <Button asChild variant="outline">
+                    <Link to="/providers/$slug" params={{ slug: selected.slug }}>
+                      View profile
+                    </Link>
+                  </Button>
+                  <Button asChild>
+                    <Link to="/request/$slug" params={{ slug: selected.slug }}>
+                      Request move
+                      <ArrowRight aria-hidden="true" />
+                    </Link>
+                  </Button>
+                </div>
               </div>
             </div>
           )}
