@@ -225,3 +225,73 @@ export function draftSummaryChips(d: MoveRequestDraft): string[] {
   if (d.services.length) chips.push(`${d.services.length} services`);
   return chips;
 }
+
+/* ------------------------------------------------------ submitted requests */
+
+/**
+ * A request sent to a provider. It is NOT a booking: nothing is scheduled and
+ * no vehicle or crew is reserved until the provider responds with a quote.
+ */
+export interface SubmittedMoveRequest {
+  id: string;
+  reference: string;
+  providerSlug: string;
+  providerName: string;
+  status: "requested";
+  submittedAt: string;
+  draft: MoveRequestDraft;
+}
+
+const REQUESTS_KEY = "movegrid.move-requests.v1";
+let requests: SubmittedMoveRequest[] = [];
+let requestsHydrated = false;
+const EMPTY_REQUESTS: SubmittedMoveRequest[] = [];
+
+function getRequests(): SubmittedMoveRequest[] {
+  if (!requestsHydrated && typeof window !== "undefined") {
+    requestsHydrated = true;
+    try {
+      const raw = window.localStorage.getItem(REQUESTS_KEY);
+      if (raw) requests = JSON.parse(raw) as SubmittedMoveRequest[];
+    } catch {
+      /* ignore */
+    }
+  }
+  return requests;
+}
+
+export function submitMoveRequest(providerSlug: string, providerName: string): SubmittedMoveRequest {
+  const req: SubmittedMoveRequest = {
+    id: `req_${Date.now().toString(36)}`,
+    reference: `MG-${Math.floor(100000 + Math.random() * 900000)}`,
+    providerSlug,
+    providerName,
+    status: "requested",
+    submittedAt: new Date().toISOString(),
+    draft: getMoveDraft(),
+  };
+  requests = [req, ...getRequests()];
+  try {
+    window.localStorage.setItem(REQUESTS_KEY, JSON.stringify(requests));
+  } catch {
+    /* ignore */
+  }
+  emit();
+  return req;
+}
+
+export function useMoveRequests(): SubmittedMoveRequest[] {
+  return useSyncExternalStore(
+    (listener) => {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+    getRequests,
+    () => EMPTY_REQUESTS,
+  );
+}
+
+export function timeWindowLabel(value: string): string | undefined {
+  const w = TIME_WINDOWS.find((t) => t.value === value);
+  return w ? `${w.label} · ${w.hint}` : undefined;
+}

@@ -27,6 +27,7 @@ import { Route as ProviderJobsRouteImport } from './routes/provider.jobs'
 import { Route as ProviderMessagesRouteImport } from './routes/provider.messages'
 import { Route as ProviderProfileRouteImport } from './routes/provider.profile'
 import { Route as ProvidersSlugRouteImport } from './routes/providers.$slug'
+import { Route as RequestSlugRouteImport } from './routes/request.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -118,6 +119,11 @@ const ProvidersSlugRoute = ProvidersSlugRouteImport.update({
   path: '/providers/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RequestSlugRoute = RequestSlugRouteImport.update({
+  id: '/request/$slug',
+  path: '/request/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -137,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/provider/messages': typeof ProviderMessagesRoute
   '/provider/profile': typeof ProviderProfileRoute
   '/providers/$slug': typeof ProvidersSlugRoute
+  '/request/$slug': typeof RequestSlugRoute
   '/provider/': typeof ProviderIndexRoute
 }
 export interface FileRoutesByTo {
@@ -156,6 +163,7 @@ export interface FileRoutesByTo {
   '/provider/messages': typeof ProviderMessagesRoute
   '/provider/profile': typeof ProviderProfileRoute
   '/providers/$slug': typeof ProvidersSlugRoute
+  '/request/$slug': typeof RequestSlugRoute
   '/provider': typeof ProviderIndexRoute
 }
 export interface FileRoutesById {
@@ -177,6 +185,7 @@ export interface FileRoutesById {
   '/provider/messages': typeof ProviderMessagesRoute
   '/provider/profile': typeof ProviderProfileRoute
   '/providers/$slug': typeof ProvidersSlugRoute
+  '/request/$slug': typeof RequestSlugRoute
   '/provider/': typeof ProviderIndexRoute
 }
 export interface FileRouteTypes {
@@ -199,6 +208,7 @@ export interface FileRouteTypes {
     | '/provider/messages'
     | '/provider/profile'
     | '/providers/$slug'
+    | '/request/$slug'
     | '/provider/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -218,6 +228,7 @@ export interface FileRouteTypes {
     | '/provider/messages'
     | '/provider/profile'
     | '/providers/$slug'
+    | '/request/$slug'
     | '/provider'
   id:
     | '__root__'
@@ -238,6 +249,7 @@ export interface FileRouteTypes {
     | '/provider/messages'
     | '/provider/profile'
     | '/providers/$slug'
+    | '/request/$slug'
     | '/provider/'
   fileRoutesById: FileRoutesById
 }
@@ -252,6 +264,7 @@ export interface RootRouteChildren {
   ProviderRoute: typeof ProviderRouteWithChildren
   SavedRoute: typeof SavedRoute
   ProvidersSlugRoute: typeof ProvidersSlugRoute
+  RequestSlugRoute: typeof RequestSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -382,6 +395,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProvidersSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/request/$slug': {
+      id: '/request/$slug'
+      path: '/request/$slug'
+      fullPath: '/request/$slug'
+      preLoaderRoute: typeof RequestSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -422,6 +442,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProviderRoute: ProviderRouteWithChildren,
   SavedRoute: SavedRoute,
   ProvidersSlugRoute: ProvidersSlugRoute,
+  RequestSlugRoute: RequestSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

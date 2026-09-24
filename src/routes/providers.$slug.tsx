@@ -2,6 +2,8 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { BadgeCheck, Clock3, MapPin, MessageSquare, Share2, Star } from "lucide-react";
 
+import { toast } from "sonner";
+
 import { AppShell } from "@/components/layout/AppShell";
 import { CrewCard, VehicleCard } from "@/components/marketplace/ResourceCards";
 import { DiscoveryMap } from "@/components/map/DiscoveryMap";
@@ -120,15 +122,26 @@ function ProviderProfilePage() {
                 <p className="mt-2 text-sm text-muted-foreground">
                   Send your move details and get a priced quote — no commitment.
                 </p>
-                <Button size="lg" className="mt-5 w-full">
-                  Request a move
+                <Button asChild size="lg" className="mt-5 w-full">
+                  <Link to="/request/$slug" params={{ slug: provider.slug }}>
+                    Request a move
+                  </Link>
                 </Button>
                 <div className="mt-3 grid grid-cols-2 gap-2">
-                  <Button variant="outline" size="sm">
+                  <Button asChild variant="outline" size="sm">
+                    <Link to="/messages">
                     <MessageSquare aria-hidden="true" />
                     Message
+                    </Link>
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      void navigator.clipboard?.writeText(window.location.href);
+                      toast.success("Profile link copied");
+                    }}
+                  >
                     <Share2 aria-hidden="true" />
                     Share
                   </Button>
@@ -173,7 +186,7 @@ function ProviderProfilePage() {
         </div>
       </nav>
 
-      <div className="mx-auto w-full max-w-[80rem] space-y-14 px-4 py-12 sm:px-6 lg:px-10 lg:py-16">
+      <div className="mx-auto w-full max-w-[80rem] space-y-14 px-4 pb-32 pt-12 sm:px-6 lg:pb-16 lg:px-10 lg:py-16">
         {/* Services */}
         <section id="services" className="scroll-mt-32">
           <h2 className="text-h2 text-foreground">Services</h2>
@@ -279,8 +292,10 @@ function ProviderProfilePage() {
 
       {/* Mobile sticky CTA */}
       <div className="fixed inset-x-0 bottom-16 z-30 border-t border-border bg-background/95 p-3 backdrop-blur lg:hidden">
-        <Button size="lg" className="w-full">
-          Request a move
+        <Button asChild size="lg" className="w-full">
+          <Link to="/request/$slug" params={{ slug: provider.slug }}>
+            Request a move
+          </Link>
         </Button>
       </div>
     </AppShell>

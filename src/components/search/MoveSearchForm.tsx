@@ -70,13 +70,12 @@ export function MoveSearchForm({
       onSubmit={(e) => {
         e.preventDefault();
         navigate({
-          to: "/find-movers",
+          to: "/plan-move",
           search: {
             pickup: values.pickup || undefined,
             destination: values.destination || undefined,
             date: values.date || undefined,
-            q: undefined,
-            provider: undefined,
+            time: undefined,
           },
         });
       }}
@@ -120,7 +119,7 @@ export function MoveSearchForm({
         <div className="p-1 md:pl-4">
           <Button type="submit" size="lg" className="w-full md:w-auto">
             <Search aria-hidden="true" />
-            Find movers
+            Get started
           </Button>
         </div>
       </div>
