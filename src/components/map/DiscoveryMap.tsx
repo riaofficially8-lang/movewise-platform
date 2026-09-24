@@ -1,5 +1,5 @@
 import { Minus, Plus, LocateFixed } from "lucide-react";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { availabilityTone } from "@/domain/availability";
@@ -56,15 +56,27 @@ export function DiscoveryMap({
 }: DiscoveryMapProps) {
   const selected = providers.find((p) => p.id === selectedId);
 
+  const [zoom, setZoom] = useState(1);
+  const [recenter, setRecenter] = useState(false);
+  useEffect(() => {
+    setZoom(1);
+    setRecenter(false);
+  }, [selectedId]);
+
   /** Selecting a provider focuses the canvas on its service area. */
   const viewBox = useMemo(() => {
-    if (!selected) return `0 0 ${VIEW.w} ${VIEW.h}`;
-    const { x, y } = project(selected.serviceArea.center);
-    const w = VIEW.w * 0.52;
-    const h = VIEW.h * 0.52;
+    const base = selected && !recenter ? 0.52 : 1;
+    const f = Math.min(Math.max(base / zoom, 0.25), 1);
+    const center = recenter
+      ? project(userLocation)
+      : selected
+        ? project(selected.serviceArea.center)
+        : { x: VIEW.w / 2, y: VIEW.h / 2 };
+    const w = VIEW.w * f;
+    const h = VIEW.h * f;
     const clamp = (v: number, min: number, max: number) => Math.min(Math.max(v, min), max);
-    return `${clamp(x - w / 2, 0, VIEW.w - w)} ${clamp(y - h / 2, 0, VIEW.h - h)} ${w} ${h}`;
-  }, [selected]);
+    return `${clamp(center.x - w / 2, 0, VIEW.w - w)} ${clamp(center.y - h / 2, 0, VIEW.h - h)} ${w} ${h}`;
+  }, [selected, zoom, recenter, userLocation]);
 
   const user = project(userLocation);
 
@@ -195,16 +207,20 @@ export function DiscoveryMap({
           </p>
         </div>
         <div className="pointer-events-auto flex flex-col gap-2">
-          <Button variant="outline" size="icon" aria-label="Zoom in" className="bg-card/92 backdrop-blur">
+          <Button variant="outline" size="icon" aria-label="Zoom in" onClick={() => setZoom((z) => Math.min(z * 1.4, 4))} className="bg-card/92 backdrop-blur">
             <Plus aria-hidden="true" />
           </Button>
-          <Button variant="outline" size="icon" aria-label="Zoom out" className="bg-card/92 backdrop-blur">
+          <Button variant="outline" size="icon" aria-label="Zoom out" onClick={() => setZoom((z) => Math.max(z / 1.4, 0.5))} className="bg-card/92 backdrop-blur">
             <Minus aria-hidden="true" />
           </Button>
           <Button
             variant="outline"
             size="icon"
             aria-label="Center on my location"
+            onClick={() => {
+              setRecenter(true);
+              setZoom(1.8);
+            }}
             className="bg-card/92 backdrop-blur"
           >
             <LocateFixed aria-hidden="true" />
